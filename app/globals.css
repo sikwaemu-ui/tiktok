@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+  --zm-green: #198754;
+  --zm-red: #D21034;
+  --zm-black: #000000;
+  --zm-orange: #EF7D00;
+
+
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  
+  /* Zambian flag color utilities */
+  --color-zm-green: #198754;
+  --color-zm-red: #D21034;
+  --color-zm-black: #000000;
+  --color-zm-orange: #EF7D00;
+}
+
+body {
+  background: #ffffff;
+  color: #111827;
+  font-family: Arial, Helvetica, sans-serif;
+}

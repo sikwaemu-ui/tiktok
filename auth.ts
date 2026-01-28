@@ -1,7 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import type { NextAuthConfig } from "next-auth";
-import connectDB from "@/lib/mongodb";
 import OTP from "@/models/OTP";
 
 /**
@@ -14,15 +13,12 @@ export function generateOTP(): string {
 }
 
 /**
- * Store OTP in MongoDB with 10-minute expiration
- * This function saves the OTP code to the database so users can verify their email
+ * Store OTP with 10-minute expiration
+ * This function saves the OTP code to local storage so users can verify their email
  * @param email - User's email address
  * @param code - 6-digit OTP code to store
  */
 export async function storeOTP(email: string, code: string): Promise<void> {
-  // Connect to MongoDB database
-  await connectDB();
-  
   // Set expiration time to 10 minutes from now
   const expiresAt = new Date(Date.now() + 10 * 60 * 1000);
 
@@ -30,7 +26,7 @@ export async function storeOTP(email: string, code: string): Promise<void> {
   // Users should only have one active OTP at a time
   await OTP.deleteMany({ email: email.toLowerCase() });
 
-  // Create new OTP document in the database
+  // Create new OTP in local storage
   await OTP.create({
     email: email.toLowerCase(),  // Store email in lowercase for consistency
     code,                        // The 6-digit verification code
@@ -47,10 +43,7 @@ export async function storeOTP(email: string, code: string): Promise<void> {
  * @returns true if OTP is valid, false otherwise
  */
 export async function verifyOTP(email: string, code: string): Promise<boolean> {
-  // Connect to MongoDB database
-  await connectDB();
-
-  // Find OTP document matching email, code, and not used yet
+  // Find OTP matching email, code, and not used yet
   const stored = await OTP.findOne({
     email: email.toLowerCase(),
     code,

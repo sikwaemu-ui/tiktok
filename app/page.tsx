@@ -3,11 +3,11 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function HomeRedirect() {
+export default function Home() {
   const router = useRouter();
   
   useEffect(() => {
-    router.replace("/app");
+    router.replace("/for-you");
   }, [router]);
 
   return null;

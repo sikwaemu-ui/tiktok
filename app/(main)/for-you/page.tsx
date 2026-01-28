@@ -5,7 +5,7 @@ import VideoCard from "@/components/VideoCard";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { sampleVideos } from "@/data/sampleUsers";
 
-export default function Home() {
+export default function ForYou() {
   const [videos, setVideos] = useState(sampleVideos);
   const [loading, setLoading] = useState(false);
 
@@ -36,19 +36,10 @@ export default function Home() {
 
   return (
     <div className="space-y-6 p-4">
-      {/* Trending Section */}
-      <div className="bg-white rounded-xl p-4 shadow-sm">
-        <h2 className="text-lg font-bold text-[var(--zm-green)] mb-3">🔥 Trending Now</h2>
-        <div className="flex gap-2 flex-wrap">
-          {["#ZambianDance", "#TikTok", "#Comedy", "#Fitness", "#Zambia"].map((tag, index) => (
-            <span 
-              key={index}
-              className="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-[var(--zm-green)] hover:text-white transition-colors cursor-pointer"
-            >
-              {tag}
-            </span>
-          ))}
-        </div>
+      {/* Header */}
+      <div className="bg-white rounded-xl p-6 shadow-sm">
+        <h1 className="text-2xl font-bold text-[var(--zm-green)] mb-2">For You</h1>
+        <p className="text-gray-600">Videos curated specially for you</p>
       </div>
 
       {/* Video Feed */}

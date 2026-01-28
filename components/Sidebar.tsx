@@ -16,28 +16,29 @@ export default function Sidebar() {
   return (
     <aside
       className="
-        fixed left-0 top-0 z-40 h-screen
-        
-        w-[72px]
-        sm:w-[200px]
-        lg:w-[240px]
-         bg-white
-        px-2 sm:px-6 py-8
+        h-screen
+        w-[50px]
+        sm:w-[60px]
+        md:w-[160px]
+        lg:w-[180px]
+        bg-white
+        px-2 sm:px-4 py-8
+        overflow-y-auto
       "
     >
       {/* Logo */}
-      <h1 className="mb-6 hidden text-xl font-bold sm:block text-[var(--zm-green)]">
+      <h1 className="mb-6 hidden md:block text-xl font-bold text-[var(--zm-green)]">
          Tik <span className="text-[var(--zm-red)]">Tok</span> 
       </h1>
 
       {/* Search (hide on very small screens) */}
       <input
         placeholder="Search"
-        className="mb-6 hidden w-full rounded-full text-black bg-gray-100 px-4 py-2 text-sm sm:block focus:outline-none focus:ring-2 focus:ring-[var(--zm-green)]"
+        className="mb-6 hidden w-full rounded-full text-black bg-gray-100 px-4 py-2 text-sm md:block focus:outline-none focus:ring-2 focus:ring-[var(--zm-green)]"
       />
 
       <nav className="flex flex-col gap-1">
-        <Link className={linkClass("/")} href="/">
+        <Link className={linkClass("/for-you")} href="/for-you">
           <span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -51,7 +52,7 @@ export default function Sidebar() {
               ></path>
             </svg>
           </span>
-          <span className="hidden sm:inline text-black">For You</span>
+          <span className="hidden md:inline text-black">For You</span>
         </Link>
 
         <Link className={linkClass("/explore")} href="/explore">
@@ -68,7 +69,7 @@ export default function Sidebar() {
               ></path>
             </svg>
           </span>
-          <span className="hidden sm:inline text-black">Explore</span>
+          <span className="hidden md:inline text-black">Explore</span>
         </Link>
 
         <Link className={linkClass("/following")} href="/following">
@@ -90,7 +91,7 @@ export default function Sidebar() {
               </g>
             </svg>
           </span>
-          <span className="hidden sm:inline text-black">Following</span>
+          <span className="hidden md:inline text-black">Following</span>
         </Link>
 
         <Link className={linkClass("/live")} href="/live">
@@ -107,7 +108,7 @@ export default function Sidebar() {
               ></path>
             </svg>
           </span>
-          <span className="hidden sm:inline text-black">LIVE</span>
+          <span className="hidden md:inline text-black">LIVE</span>
         </Link>
 
         <Link className={linkClass("/upload")} href="/upload">
@@ -129,7 +130,7 @@ export default function Sidebar() {
               </g>
             </svg>
           </span>
-          <span className="hidden sm:inline text-black">Upload</span>
+          <span className="hidden md:inline text-black">Upload</span>
         </Link>
 
         <Link className={linkClass("/profile")} href="/profile">
@@ -146,31 +147,19 @@ export default function Sidebar() {
               ></path>
             </svg>
           </span>
-          <span className="hidden sm:inline text-black">Profile</span>
+          <span className="hidden md:inline text-black">Profile</span>
         </Link>
 
         <Link className={linkClass("/dashboard")} href="/dashboard">
           <span className="text-black">
             .....
           </span>
-          <span className="hidden sm:inline text-black ">more</span>
+          <span className="hidden md:inline text-black ">more</span>
         </Link>
       </nav>
 
-      {/* Login button */}
-      <Link
-        href="/login"
-        className="
-          mt-8 hidden rounded bg-[var(--zm-green)]
-          py-2 text-center text-white font-semibold
-          sm:block
-        "
-      >
-        Log in
-      </Link>
-
       {/* Company rights */}
-      <div className="mt-12 hidden text-left text-gray-500 text-xs sm:block">
+      <div className="mt-12 hidden text-left text-gray-500 text-xs md:block">
         <div className="space-y-1">
           <a href="#" className="block hover:text-gray-700">Company</a>
           <a href="#" className="block hover:text-gray-700">Program</a>

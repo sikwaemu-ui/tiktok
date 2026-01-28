@@ -1,6 +1,6 @@
-import mongoose, { Schema, Model } from "mongoose";
+import { userStorage, UserRecord } from "@/lib/storage";
 
-// Interface defining the structure of a User document in MongoDB
+// Interface defining the structure of a User document
 export interface IUser {
   name: string;           // User's full name
   email: string;          // User's email address (unique)
@@ -8,54 +8,110 @@ export interface IUser {
   emailVerified: boolean; // Whether email has been verified
   createdAt: Date;        // When the user account was created
   updatedAt: Date;        // When the user account was last updated
+  _id?: string;           // Unique identifier
 }
 
-// Schema definition for User documents in MongoDB
-const UserSchema = new Schema<IUser>({
-  name: {
-    type: String,        // Data type is string
-    required: true,      // This field is mandatory
-    trim: true,          // Remove whitespace from both ends
+/**
+ * User Model - File-based storage adapter
+ * Provides MongoDB-like interface using local file storage
+ */
+const UserModel = {
+  /**
+   * Create a new user record
+   */
+  create: async (data: {
+    name: string;
+    email: string;
+    password: string;
+    emailVerified: boolean;
+  }): Promise<IUser> => {
+    const record = userStorage.create({
+      name: data.name,
+      email: data.email.toLowerCase(),
+      password: data.password,
+      emailVerified: data.emailVerified,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+    return {
+      ...record,
+      createdAt: new Date(record.createdAt || new Date().toISOString()),
+      updatedAt: new Date(record.updatedAt || new Date().toISOString()),
+      _id: record.id,
+    };
   },
-  email: {
-    type: String,        // Data type is string
-    required: true,      // This field is mandatory
-    unique: true,         // Email must be unique across all users
-    lowercase: true,     // Automatically convert to lowercase
-    trim: true,          // Remove whitespace from both ends
-    index: true,         // Create database index for faster queries
-  },
-  password: {
-    type: String,        // Data type is string
-    required: true,      // This field is mandatory
-    minlength: 6,        // Minimum password length
-  },
-  emailVerified: {
-    type: Boolean,       // Data type is boolean
-    default: false,      // Default value is false (not verified)
-  },
-  createdAt: {
-    type: Date,         // Data type is date
-    default: Date.now,  // Automatically set to current time
-  },
-  updatedAt: {
-    type: Date,         // Data type is date
-    default: Date.now,  // Automatically set to current time
-  },
-});
 
-// Create index for efficient email lookups
-UserSchema.index({ email: 1 });
+  /**
+   * Find one user record
+   */
+  findOne: async (filter: any): Promise<IUser | null> => {
+    const record = userStorage.findOne({
+      email: filter.email?.toLowerCase?.() || filter.email,
+      id: filter._id || filter.id,
+    });
 
-// Update the updatedAt field before saving
-UserSchema.pre('save', function(next) {
-  this.updatedAt = new Date();
-  next();
-});
+    if (!record) return null;
 
-// Create or retrieve the User model
-// This pattern prevents overwriting the model during hot reloads in development
-const User: Model<IUser> =
-  (mongoose.models && mongoose.models.User) || mongoose.model<IUser>("User", UserSchema);
+    return {
+      ...record,
+      createdAt: new Date(record.createdAt || new Date().toISOString()),
+      updatedAt: new Date(record.updatedAt || new Date().toISOString()),
+      _id: record.id,
+    };
+  },
 
-export default User;
+  /**
+   * Find all user records matching filter
+   */
+  find: async (filter: any): Promise<IUser[]> => {
+    const records = userStorage.find({
+      email: filter.email?.toLowerCase?.() || filter.email,
+      id: filter._id || filter.id,
+    });
+
+    return records.map((record) => ({
+      ...record,
+      createdAt: new Date(record.createdAt || new Date().toISOString()),
+      updatedAt: new Date(record.updatedAt || new Date().toISOString()),
+      _id: record.id,
+    }));
+  },
+
+  /**
+   * Update one user record
+   */
+  updateOne: async (filter: any, update: any): Promise<any> => {
+    return userStorage.updateOne(
+      { id: filter._id || filter.id },
+      { ...update, updatedAt: new Date().toISOString() }
+    );
+  },
+
+  /**
+   * Delete one user record
+   */
+  deleteOne: async (filter: any): Promise<any> => {
+    return userStorage.deleteOne({ id: filter._id || filter.id });
+  },
+
+  /**
+   * Save method for user record
+   */
+  save: async function (this: any): Promise<any> {
+    const { _id, id, ...data } = this;
+    if (_id || id) {
+      return userStorage.updateOne(
+        { id: _id || id },
+        { ...data, updatedAt: new Date().toISOString() }
+      );
+    } else {
+      return userStorage.create({
+        ...data,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      });
+    }
+  },
+};
+
+export default UserModel;

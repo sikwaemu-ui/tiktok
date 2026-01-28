@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { generateEmailVerificationToken } from "@/lib/jwt";
-import connectDB from "@/lib/mongodb";
 import User from "@/models/User";
 
 /**
@@ -38,9 +37,6 @@ export async function POST(request: NextRequest) {
         { status: 400 }
       );
     }
-
-    // Connect to MongoDB
-    await connectDB();
 
     // Check if user already exists
     const existingUser = await User.findOne({ email: email.toLowerCase() });

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function TopNav() {
   return (
-    <header className="fixed top-0 z-50 flex w-full items-center justify-between bg-white px-4 py-2  sm:px-6 hidden sm:flex">
+    <header className="hidden md:flex md:w-full items-center justify-between bg-white px-2 py-2 sm:px-4 lg:px-6">
       <Link href="/" className="font-bold text-lg text-[var(--zm-green)]">
        Tik <span className="text-[var(--zm-red)]">Tok</span> 
       </Link>
@@ -16,24 +16,24 @@ export default function TopNav() {
         </Link>
 
         <Link
-          href="/download"
-          className="rounded-full bg-[var(--zm-red)] px-4 py-2 text-sm text-white font-semibold hover:bg-[var(--zm-orange)] transition-colors hidden sm:block"
-        >
-          Get App
-        </Link>
-
-        <Link
           href="/login"
-          className="rounded-full bg-[var(--zm-green)] px-4 py-2 text-white text-sm font-semibold hover:bg-[var(--zm-black)] transition-colors"
+          className="rounded-full border border-[var(--zm-green)] text-[var(--zm-green)] px-4 py-2 text-sm font-semibold hover:bg-[var(--zm-green)] hover:text-white transition-colors"
         >
-          Log in
+          Log In
         </Link>
 
         <Link
           href="/signup"
-          className="rounded-full bg-[var(--zm-orange)] px-4 py-2 text-white text-sm font-semibold hover:bg-[var(--zm-red)] transition-colors"
+          className="rounded-full bg-[var(--zm-green)] px-4 py-2 text-sm text-white font-semibold hover:bg-[var(--zm-red)] transition-colors hidden sm:block"
         >
-          Sign up
+          Sign Up
+        </Link>
+
+        <Link
+          href="/download"
+          className="rounded-full bg-[var(--zm-red)] px-4 py-2 text-sm text-white font-semibold hover:bg-[var(--zm-orange)] transition-colors hidden lg:block"
+        >
+          Get App
         </Link>
       </div>
     </header>

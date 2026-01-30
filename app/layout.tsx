@@ -5,6 +5,7 @@
  */
 
 import "./globals.css";
+import Providers from "./providers";
 
 export const metadata = {
   title: "TikTok",
@@ -19,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-white text-gray-900">
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

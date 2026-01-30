@@ -162,7 +162,7 @@ export default function SignupPage() {
 
     // Here you would typically submit all the signup data
     console.log('Final signup data:', formData);
-    router.push('/');
+    router.push('/home');
     setLoading(false);
   };
 

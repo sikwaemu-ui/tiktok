@@ -69,12 +69,12 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (data.success) {
-        router.push('/');
+        router.push('/home?type=login&user=User');
       } else {
-        router.push('/');
+        router.push('/home?type=login&user=User');
       }
     } catch (err) {
-      router.push('/');
+      router.push('/home?type=login&user=User');
     } finally {
       setLoading(false);
     }

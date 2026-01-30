@@ -19,13 +19,13 @@ export default function MainLayout({ children }: MainLayoutProps) {
 
   return (
     <div className={`flex h-screen w-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
-      {/* Persistent Sidebar - 10% width, visible on all screen sizes */}
-      <div className={`w-[10%] min-w-[50px] max-w-[180px] ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-r flex-shrink-0 overflow-y-auto scrollbar-hide`}>
+      {/* Persistent Sidebar - 15% width, visible on all screen sizes */}
+      <div className={`w-[15%] min-w-[50px] max-w-[220px] ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-r flex-shrink-0 overflow-y-auto scrollbar-hide`}>
         <Sidebar />
       </div>
 
-      {/* Main Content Area - 90% width or full width on mobile */}
-      <div className="flex-1 sm:w-[90%] flex flex-col overflow-hidden">
+      {/* Main Content Area - 85% width or full width on mobile */}
+      <div className="flex-1 sm:w-[85%] flex flex-col overflow-hidden">
         {/* Persistent TopNav */}
         <div className={`sticky top-0 z-30 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-b flex-shrink-0`}>
           <TopNav />

@@ -271,10 +271,11 @@ export default function SignupPage() {
       <div className="w-full max-w-md sm:max-w-xl md:max-w-3xl lg:max-w-4xl px-4 relative z-10">
         <div className="bg-transparent">
           <div className="mb-6 text-center">
-            <div className="text-4xl font-bold">
-              <span className="text-black">SKUL</span>
-              <span className="text-[#FE2C55]">T</span>
-            </div>
+            <img 
+              src="/LogO/landing page.png" 
+              alt="Skult" 
+              className="h-12 w-auto mx-auto"
+            />
           </div>
 
           <div className="mb-8">

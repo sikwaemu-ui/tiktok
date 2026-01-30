@@ -8,7 +8,7 @@ import "./globals.css";
 import Providers from "./providers";
 
 export const metadata = {
-  title: "TikTok",
+  title: "Skult",
   description: "Share and discover videos",
 };
 

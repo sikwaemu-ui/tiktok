@@ -4,8 +4,10 @@ import { useCallback, useState } from "react";
 import VideoCard from "@/components/VideoCard";
 import { useInfiniteScroll } from "@/hooks/useInfiniteScroll";
 import { sampleVideos } from "@/data/sampleUsers";
+import { useDarkMode } from "@/contexts/DarkModeContext";
 
 export default function ForYou() {
+  const { isDarkMode } = useDarkMode();
   const [videos, setVideos] = useState(sampleVideos);
   const [loading, setLoading] = useState(false);
 
@@ -37,9 +39,13 @@ export default function ForYou() {
   return (
     <div className="space-y-6 p-4">
       {/* Header */}
-      <div className="bg-white rounded-xl p-6 shadow-sm">
+      <div className={`rounded-xl p-6 shadow-sm ${
+        isDarkMode ? 'bg-gray-800' : 'bg-white'
+      }`}>
         <h1 className="text-2xl font-bold text-[var(--zm-green)] mb-2">For You</h1>
-        <p className="text-gray-600">Videos curated specially for you</p>
+        <p className={isDarkMode ? 'text-gray-300' : 'text-gray-600'}>
+          Videos curated specially for you
+        </p>
       </div>
 
       {/* Video Feed */}

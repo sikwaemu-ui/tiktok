@@ -1,8 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useDarkMode } from "@/contexts/DarkModeContext";
 
 export default function VideoCard({ video }: any) {
+  const { isDarkMode } = useDarkMode();
   const ref = useRef<HTMLVideoElement>(null);
   const [isLiked, setIsLiked] = useState(false);
   const [isFollowing, setIsFollowing] = useState(false);

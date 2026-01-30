@@ -1,28 +1,33 @@
+"use client";
 /**
  * Main Route Group Layout
  * Wraps all main app routes with Sidebar and TopNav
  * Used for all authenticated/main pages
  */
 
+
 import Sidebar from "@/components/Sidebar";
 import TopNav from "@/components/TopNav";
+import { useDarkMode } from "@/contexts/DarkModeContext";
 
 interface MainLayoutProps {
   children: React.ReactNode;
 }
 
 export default function MainLayout({ children }: MainLayoutProps) {
+  const { isDarkMode } = useDarkMode();
+
   return (
-    <div className="flex h-screen w-screen bg-gray-50">
+    <div className={`flex h-screen w-screen ${isDarkMode ? 'bg-gray-900' : 'bg-gray-50'}`}>
       {/* Persistent Sidebar - 10% width, visible on all screen sizes */}
-      <div className="w-[10%] min-w-[50px] max-w-[180px] bg-white border-r border-gray-200 flex-shrink-0">
+      <div className={`w-[10%] min-w-[50px] max-w-[180px] ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-r flex-shrink-0 overflow-y-auto scrollbar-hide`}>
         <Sidebar />
       </div>
 
       {/* Main Content Area - 90% width or full width on mobile */}
       <div className="flex-1 sm:w-[90%] flex flex-col overflow-hidden">
         {/* Persistent TopNav */}
-        <div className="sticky top-0 z-30 bg-white border-b border-gray-200 flex-shrink-0">
+        <div className={`sticky top-0 z-30 ${isDarkMode ? 'bg-gray-800 border-gray-700' : 'bg-white border-gray-200'} border-b flex-shrink-0`}>
           <TopNav />
         </div>
 

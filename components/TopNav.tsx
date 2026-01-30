@@ -1,13 +1,18 @@
+"use client";
+
 import Link from "next/link";
+import { useDarkMode } from "@/contexts/DarkModeContext";
 
 export default function TopNav() {
-  return (
-    <header className="hidden md:flex md:w-full items-center justify-between bg-white px-2 py-2 sm:px-4 lg:px-6">
-      <Link href="/" className="font-bold text-lg text-[var(--zm-green)]">
-       Tik <span className="text-[var(--zm-red)]">Tok</span> 
-      </Link>
+  const { isDarkMode } = useDarkMode();
 
-      <div className="flex items-center gap-3 rounded-full bg-gray-100 px-3 py-2">
+  return (
+    <header className={`hidden md:flex md:w-full items-center justify-end px-2 py-2 sm:px-4 lg:px-6 ${
+      isDarkMode ? 'bg-gray-800' : 'bg-white'
+    }`}>
+      <div className={`flex items-center gap-3 rounded-full px-3 py-2 ${
+        isDarkMode ? 'bg-gray-700' : 'bg-gray-100'
+      }`}>
         <Link
           href="/coins"
           className="rounded-full bg-[var(--zm-orange)] px-4 py-2 text-sm text-white font-semibold hover:bg-[var(--zm-red)] transition-colors"
@@ -17,7 +22,11 @@ export default function TopNav() {
 
         <Link
           href="/login"
-          className="rounded-full border border-[var(--zm-green)] text-[var(--zm-green)] px-4 py-2 text-sm font-semibold hover:bg-[var(--zm-green)] hover:text-white transition-colors"
+          className={`rounded-full px-4 py-2 text-sm font-semibold transition-colors ${
+            isDarkMode 
+              ? 'bg-gray-600 text-gray-300 hover:bg-gray-700 hover:text-white' 
+              : 'bg-[var(--zm-green)] text-white hover:bg-[var(--zm-red)]'
+          }`}
         >
           Log In
         </Link>
